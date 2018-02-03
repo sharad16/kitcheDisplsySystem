@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Kitchen Display System</title>
+  <link rel="stylesheet" href="../bower_components/angular/angular.min.js" media="screen" title="no title" charset="utf-8">
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {}
+  </style>
+</head>
+
+<body ng-controller="myCtrl">
+
+  <div class="" layout-fill layout="column" flex>
+    <div class="" flex="50" layout="column" layout-align="center center">
+      <form name="orderForm">
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <input type="text" ng-model="cName" placeholder="Coustomer Name">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <input type="text" ng-model="pName" placeholder="Product name">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <input type="Number" placeholder="Enter quantity " ng-model="quantity" required>
+
+        </md-input-container>
+        </div>
+      </form>
+
+      <md-button class="md-raised md-primary" ng-click="confirmOrder(cName,pName,quantity)">Confiorm Order</md-button>
+    </div>
+    <div class="" flex="50" layout="column">
+      <md-container>
+        <div id="tableToExport">
+        <table>
+          <tr >
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Created-till-now</th>
+            <th>Predicted</th>
+            <th>Status</th>
+          </tr>
+          <tr ng-repeat="order in orders track by $index">
+            <td>{{order.cName}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.pName}}</td>
+            <td>{{order.predicted}}</td>
+            <td>
+              <md-button id="on_{{$index}}" class="md-raised md-primary" ng-click="done()">Done</md-button>
+            </td>
+          </tr>
+        </table>
+        </div>
+        <md-button class="md-raised md-primary" ng-click="downloadReports()">download reports</md-button>
+      </md-container>
+      <div class="" flex="50" layout="column" layout-align="center center">
+      <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <input type="text" ng-model="dishName" placeholder="Dish Name">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <input type="Number" md-maxlength="4" placeholder="Enter Predicted values " ng-model="predictedValue" required>
+      </md-input-container>
+
+    </div>
+      <md-button class="md-raised md-primary" ng-click="confirm(predictedValue,dishName)">Confiorm</md-button>
+    </div>
+</div>
+
+  </div>
+
+
+  <!-- Third-party Libraries -->
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-material/angular-material.min.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+  <!-- Application Code -->
+  <script src="contoller.js"></script>
+</body>
+
+</html>
