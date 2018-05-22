@@ -5,14 +5,11 @@ var config = require('../config/dbConfig');
 mongoose.connect(config.MONGO_URI);
 
 var workers = mongoose.Schema({
-
-     productName:{type:String ,unique: true, lowercase: true},
-     quantity:{type:String,select: false},
-     createdTillNow:{type:Number,required:true},
-     predicted:{type:Number,required:true},
-     status:{type:Boolean}
-
-
+     coustomerName:{type:String ,select:false},
+     productName:{type:String ,unique: true,},
+     quantity:{type:Number},
+     createdTillNow:{type:Number},
+     predicted:{type:Number}
  });
 
 var workers = mongoose.model('workers', workers);

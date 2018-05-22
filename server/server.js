@@ -8,15 +8,16 @@ var config = require('./config/dbConfig');
 var kitchenController = require('./controller/kitchen');
 
 
-
+//configuration
 app.use(cors());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
+app.use(bodyParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(kitchenController);
 
 
 app.listen(config.PORT_NUMBER,function(){
-	console.log('server running on port '+config.PORT_NUMBER);
+	// console.log('server running on port '+config.PORT_NUMBER);
 })
