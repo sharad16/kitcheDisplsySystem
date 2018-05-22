@@ -1,6 +1,6 @@
-// 
+//
 
-const PLACE_ORDER = "http://localhost:8091/place_order"
-const SETTING_PREDICATED_VALUE = "http://localhost:8091/set_predcated_value"
-const INIT_LOAD_DATA = "http://localhost:8091/init_load"
-const DONE = "http://localhost:8091/done"
+const PLACE_ORDER = "http://fasoos-demo.herokuapp.com/place_order"
+const SETTING_PREDICATED_VALUE = "http://fasoos-demo.herokuapp.com/set_predcated_value"
+const INIT_LOAD_DATA = "http://fasoos-demo.herokuapp.com/init_load"
+const DONE = "http://fasoos-demo.herokuapp.com/done"

@@ -17,7 +17,9 @@ app.use(bodyParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(kitchenController);
 
-
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '../client/index.html')); // Set index.html as layout
+});
 app.listen(config.PORT_NUMBER,function(){
 	// console.log('server running on port '+config.PORT_NUMBER);
 })
