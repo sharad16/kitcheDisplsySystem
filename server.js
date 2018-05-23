@@ -4,8 +4,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
-var config = require('./config/dbConfig');
-var kitchenController = require('./controller/kitchen');
+var config = require('./server/config/dbConfig');
+var kitchenController = require('./server/controller/kitchen');
 
 
 //configuration
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser());
-app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join('./client')));
 app.use(kitchenController);
 
 app.get('*', function(req, res) {
