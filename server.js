@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser());
 app.use(express.static(path.join(__dirname + 'client')));
 app.use(kitchenController);
-app.get('*',function(req, res){
+app.get('/favicon.ico',function(req, res){
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 app.listen(config.PORT_NUMBER,function(){
