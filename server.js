@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser());
-app.use(express.static(path.join('./client')));
+app.use(express.static(path.join(__dirname + 'client')));
 app.use(kitchenController);
 
 app.get('*', function(req, res) {
