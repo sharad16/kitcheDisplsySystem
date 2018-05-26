@@ -13,6 +13,8 @@ angular.module('MyApp')
       })
     }
 
+
+
     //order the item
     self.confirmOrder = function(sendData, response, failure) {
       $http.post(PLACE_ORDER, sendData).then(function(data) {
@@ -37,6 +39,15 @@ angular.module('MyApp')
     //inform server that order is ready to serve
     self.orderServed = function(sendData, response, failure) {
       $http.post(DONE, sendData).then(function(data) {
+        if (data) {
+          response(data);
+        } else {
+          failure();
+        }
+      })
+    }
+    self.deleteData = function(sendData, response, failure) {
+      $http.post('http://localhost:8091/delete',sendData).then(function(data) {
         if (data) {
           response(data);
         } else {

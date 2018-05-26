@@ -7,7 +7,7 @@ mongoose.connect(config.MONGO_URI);
 var workers = mongoose.Schema({
      coustomerName:{type:String ,select:false},
      productName:{type:String ,unique: true,},
-     quantity:{type:Number},
+     quantity:{type:Number,min:0},
      createdTillNow:{type:Number},
      predicted:{type:Number}
  });

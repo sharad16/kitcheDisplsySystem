@@ -49,15 +49,29 @@ router.get('/init_load', function (req, res) {
 })
 
 router.post('/done', function (req,res) {
-    // console.log(req.body.pName)
+    console.log(req.body.pName)
     db.workers.findOneAndUpdate(
-        { "productName": req.body.pName },
+        {$and:[{ "productName": req.body.pName },
+        { quantity: { $gte: 1 } }]},
         { $inc: { createdTillNow: 1,quantity: -1 } }
+        , function (err, result) {
+            if (err) {
+                console.log(err, "data not exists ....")
+            } else {
+                retriveData(req, res);
+            }
+        })
+})
+router.post('/delete', function (req,res) {
+    console.log(req.body.pName)
+    db.workers.deleteMany(
+        { "productName": req.body.pName }
         , function (err, result) {
             if (err) {
                 // console.log(err, "data not exists ....")
             } else {
-                retriveData(req, res);
+              console.log(result.result + " document(s) deleted");
+                // retriveData(req, res);
             }
         })
 })

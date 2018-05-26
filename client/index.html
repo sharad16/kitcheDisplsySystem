@@ -33,7 +33,7 @@
       <div layout-gt-sm="row">
 
         <md-input-container class="md-block" flex-gt-sm>
-          <input type="text" ng-model="cName" placeholder="Coustomer Name">
+          <input type="text" ng-model="cName" placeholder="Coustomer Name" required>
         </md-input-container>
 
         <!-- <md-input-container class="md-block" flex-gt-sm>
@@ -42,7 +42,7 @@
 
         <md-input-container>
           <label>Product Name</label>
-          <md-select id="selectProduct" ng-model="pName">
+          <md-select id="selectProduct" ng-model="pName" required>
             <md-option><em>None</em></md-option>
             <md-option ng-repeat="product in products" ng-value="product">
               {{product}}
@@ -57,7 +57,7 @@
         </div>
       </form>
 
-      <md-button class="md-raised md-primary" ng-click="confirmOrder(cName,pName,quantity)">Confiorm Order</md-button>
+      <md-button ng-disabled="orderForm.$invalid" class="md-raised md-primary" ng-click="confirmOrder(cName,pName,quantity)">Confiorm Order</md-button>
     </div>
     <div class="" flex="50" layout="column">
       <md-container>
@@ -76,22 +76,22 @@
             <td>{{order.createdTillNow}}</td>
             <td>{{order.predicted}}</td>
             <td>
-              <md-button id="on_{{$index}}" class="md-raised md-primary" ng-click="orderServed(order.productName)">Done</md-button>
+              <md-button ng-disabled="order.quantity<=0" id="on_{{$index}}" class="md-raised md-primary" ng-click="orderServed(order.productName)">Done</md-button>
             </td>
           </tr>
         </table>
         </div>
-        <md-button class="md-raised md-primary" ng-click="downloadReports()">download reports</md-button>
+        <md-button ng-disabled='list.length==0' class="md-raised md-primary" ng-click="downloadReports()">download reports</md-button>
       </md-container>
       <div class="" flex="50" layout="column" layout-align="center center">
       <div layout-gt-sm="row">
       <!-- <md-input-container class="md-block" flex-gt-sm>
         <input type="text" ng-model="dishName" placeholder="Dish Name">
       </md-input-container> -->
-      <div>
+      <form name="predictForm">
       <md-input-container>
         <label>Dish Name</label>
-        <md-select id="selectDish" ng-model="dishName">
+        <md-select id="selectDish" ng-model="dishName" required>
           <md-option><em>None</em></md-option>
           <md-option ng-repeat="product in list" ng-value="product">
             {{product.productName}}
@@ -102,8 +102,8 @@
         <input id="predictedValue" type="Number" min='0'  placeholder="Enter Predicted values " ng-model="predictValue" required>
       </md-input-container>
 
-    </div>
-      <md-button class="md-raised md-primary" ng-click="predictedValue(predictValue,dishName)">predicted Value</md-button>
+    </form>
+      <md-button ng-disabled='predictForm.$invalid' class="md-raised md-primary" ng-click="predictedValue(predictValue,dishName)">predicted Value</md-button>
     </div>
   </div>
 </div>
