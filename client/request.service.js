@@ -46,5 +46,14 @@ angular.module('MyApp')
         }
       })
     }
+    self.deleteData = function(sendData, response, failure) {
+      $http.delete(DELETE,sendData).then(function(data) {
+        if (data) {
+          response(data);
+        } else {
+          failure();
+        }
+      })
+    }
 
   }]);

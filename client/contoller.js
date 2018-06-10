@@ -78,7 +78,6 @@ angular.module('MyApp', ['ngMaterial'])
           //Now convert each value to string and comma-seprated
           row += index + ',';
         }
-
         row = row.slice(0, -1);
 
         //append Label row with line break

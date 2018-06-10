@@ -2,8 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db/databaseSchema');
-
-
 router.post('/place_order', function (req, res) {
 
     var data = new db.workers({ coustomerName: req.body.cName, productName: req.body.pName, quantity: req.body.quantity, createdTillNow: 0, predicted: null });
@@ -58,7 +56,18 @@ router.post('/done', function (req,res) {
             }
         })
 })
-
+router.post('/delete', function (req,res) {
+    db.workers.deleteMany(
+        { "productName": req.body.pName }
+        , function (err, result) {
+            if (err) {
+                // console.log(err, "data not exists ....")
+            } else {
+              console.log(result.result + " document(s) deleted");
+                // retriveData(req, res);
+            }
+        })
+})
 
 function retriveData(req, res) {
     db.workers.find(function (err, data, status) {
