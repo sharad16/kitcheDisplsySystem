@@ -2,9 +2,9 @@
   "name": "kitchen-display-system",
   "version": "1.0.0",
   "description": "kitchen-display-system",
-  "main": "server/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "server/node server.js",
+    "start": "node server.js",
     "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
