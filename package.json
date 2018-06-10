@@ -4,7 +4,7 @@
   "description": "kitchen-display-system",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "server/node server.js",
     "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

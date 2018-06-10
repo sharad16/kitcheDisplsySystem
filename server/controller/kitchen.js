@@ -7,7 +7,7 @@ var db = require('../db/databaseSchema');
 router.post('/place_order', function (req, res) {
 
     var data = new db.workers({ coustomerName: req.body.cName, productName: req.body.pName, quantity: req.body.quantity, createdTillNow: 0, predicted: null });
-
+console.log("run",db)
     db.workers.findOneAndUpdate(
         { "productName": req.body.pName },
         { $inc: { quantity: req.body.quantity } }
