@@ -46,14 +46,5 @@ angular.module('MyApp')
         }
       })
     }
-    self.deleteData = function(sendData, response, failure) {
-      $http.post('http://localhost:3000/delete',sendData).then(function(data) {
-        if (data) {
-          response(data);
-        } else {
-          failure();
-        }
-      })
-    }
 
   }]);

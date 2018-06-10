@@ -2,62 +2,35 @@
 <html ng-app="MyApp">
 
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Kitchen Display System</title>
   <link href="bower_components\angular-material\angular-material.min.css" rel="stylesheet">
-  <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td,
-    th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-
-    tr:nth-child(even) {}
-  </style>
+  <link href="index.css" rel="stylesheet">
 </head>
-
-<body ng-controller="myCtrl">
-
+<body ng-controller="myController as vm">
   <div class="" layout-fill layout="column" flex>
     <div class="" flex="50" layout="column" layout-align="center center">
       <form id="placeOrder" name="orderForm">
       <div layout-gt-sm="row">
-
         <md-input-container class="md-block" flex-gt-sm>
-          <input type="text" ng-model="cName" placeholder="Coustomer Name" required>
+          <input type="text" ng-model="vm.cName" placeholder="Coustomer Name" required>
         </md-input-container>
-
-        <!-- <md-input-container class="md-block" flex-gt-sm>
-          <input type="text" ng-model="pName" placeholder="Product name">
-        </md-input-container> -->
-
         <md-input-container>
           <label>Product Name</label>
-          <md-select id="selectProduct" ng-model="pName" required>
+          <md-select id="selectProduct" ng-model="vm.pName" required>
             <md-option><em>None</em></md-option>
-            <md-option ng-repeat="product in products" ng-value="product">
-              {{product}}
+            <md-option ng-repeat="product in vm.products" ng-value="product">
+              <span ng-bind="product"></span>
             </md-option>
           </md-select>
         </md-input-container>
-
         <md-input-container class="md-block" flex-gt-sm>
-          <input type="Number" placeholder="Enter quantity " min='1' ng-model="quantity" required>
-
+          <input type="Number" placeholder="Enter quantity " min='1' ng-model="vm.quantity" required>
         </md-input-container>
         </div>
       </form>
-
-      <md-button ng-disabled="orderForm.$invalid" class="md-raised md-primary" ng-click="confirmOrder(cName,pName,quantity)">Confiorm Order</md-button>
+      <md-button ng-disabled="!vm.quantity||!vm.pName||!vm.cName" class="md-raised md-primary" ng-click="vm.confirmOrder(vm.cName,vm.pName,vm.quantity)">Confiorm Order</md-button>
     </div>
     <div class="" flex="50" layout="column">
       <md-container>
@@ -70,44 +43,40 @@
             <th>Predicted</th>
             <th>Status</th>
           </tr>
-          <tr ng-repeat="order in list track by $index">
-            <td>{{order.productName}}</td>
-            <td>{{order.quantity}}</td>
-            <td>{{order.createdTillNow}}</td>
-            <td>{{order.predicted}}</td>
+          <tr ng-repeat="order in vm.list track by $index">
+            <td><span ng-bind="order.productName"></span></td>
+            <td><span ng-bind="order.quantity"></span></td>
+            <td><span ng-bind="order.createdTillNow"></span></td>
+            <td><span ng-bind="order.predicted"></span></td>
             <td>
-              <md-button ng-disabled="order.quantity<=0" id="on_{{$index}}" class="md-raised md-primary" ng-click="orderServed(order.productName)">Done</md-button>
+              <md-button ng-disabled="order.quantity<=0" id="on_{{$index}}" class="md-raised md-primary" ng-click="vm.orderServed(order.productName)">Done</md-button>
             </td>
           </tr>
         </table>
         </div>
-        <md-button ng-disabled='list.length==0' class="md-raised md-primary" ng-click="downloadReports()">download reports</md-button>
+        <md-button ng-disabled='list.length==0' class="md-raised md-primary" ng-click="vm.downloadReports()">download reports</md-button>
       </md-container>
       <div class="" flex="50" layout="column" layout-align="center center">
       <div layout-gt-sm="row">
-      <!-- <md-input-container class="md-block" flex-gt-sm>
-        <input type="text" ng-model="dishName" placeholder="Dish Name">
-      </md-input-container> -->
+      </md-input-container>
       <form name="predictForm">
       <md-input-container>
         <label>Dish Name</label>
-        <md-select id="selectDish" ng-model="dishName" required>
+        <md-select id="selectDish" ng-model="vm.dishName" required>
           <md-option><em>None</em></md-option>
-          <md-option ng-repeat="product in list" ng-value="product">
-            {{product.productName}}
+          <md-option ng-repeat="product in vm.list" ng-value="product">
+            <span ng-bind="product.productName"></span>
           </md-option>
         </md-select>
       </md-input-container>
       <md-input-container class="md-block" flex-gt-sm>
-        <input id="predictedValue" type="Number" min='0'  placeholder="Enter Predicted values " ng-model="predictValue" required>
+        <input id="predictedValue" type="Number" min='0'  placeholder="Enter Predicted values " ng-model="vm.predictValue" required>
       </md-input-container>
-
     </form>
-      <md-button ng-disabled='predictForm.$invalid' class="md-raised md-primary" ng-click="predictedValue(predictValue,dishName)">predicted Value</md-button>
+      <md-button ng-disabled='predictForm.$invalid' class="md-raised md-primary" ng-click="vm.predictedValue(vm.predictValue,vm.dishName)">predicted Value</md-button>
     </div>
   </div>
 </div>
-
   </div>
 </body>
 <!-- Third-party Libraries -->

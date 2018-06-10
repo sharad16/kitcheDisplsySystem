@@ -1,8 +1,9 @@
 angular.module('MyApp', ['ngMaterial'])
-  .controller('myCtrl', ["$scope", "$timeout", "$http", "requestService", function($scope, $timeout, $http, requestService) {
+  .controller('myController', ["$scope", "$timeout", "$http", "requestService", function($scope, $timeout, $http, requestService) {
     var status = 0;
-    $scope.list = [];
-    $scope.products = ["Jumbo Chicken Wrap", "Vegetarian Lasagne", "Chicken Rice Feast", "Grilled Chicken Breast", "Samosha", "Vada Pav", "Idly"]
+    var vm=this;
+    vm.list = [];
+    vm.products = ["Jumbo Chicken Wrap", "Vegetarian Lasagne", "Chicken Rice Feast", "Grilled Chicken Breast", "Warm Fruit Bowl", "Tomato Toast With Macadamia Ricotta"]
 
     initLoadData();
 
@@ -12,58 +13,52 @@ angular.module('MyApp', ['ngMaterial'])
 
     function response(data) {
       console.log(data.data);
-      $scope.list = data.data;
+      vm.list = data.data;
     }
 
     function failure() {
       console.log("data not found");
     }
 
-    $scope.confirmOrder = function(cName, pName, quantity) {
+    vm.confirmOrder = function(cName, pName, quantity) {
       requestService.confirmOrder({
         cName: cName,
         pName: pName,
         quantity: quantity
       }, response, failure);
       document.getElementById("placeOrder").reset();
-      // document.getElementById("selectProduct").reset();
-      $scope.pName = '';
-    //  var elements = document.getElementsByTagName('selectProduct');
-      //elements[0].value = '';
+      vm.pName = '';
+      vm.quantity='';
+      vm.cName='';
+   
     }
 
-    $scope.predictedValue = function(value, dishName) {
+    vm.predictedValue = function(value, dishName) {
       requestService.predictedValue({
         dishName: dishName,
         predictedValue: value
       }, response, failure);
       document.getElementById("predictedValue").value = '';
-      $scope.dishName = '';
+      vm.dishName = '';
     }
 
-    $scope.orderServed = function(value) {
+    vm.orderServed = function(value) {
       requestService.orderServed({
         pName: value
       }, response, failure);
     }
-
-    $scope.downloadReports = function() {
+    vm.downloadReports = function() {
       var table = []
-      for (var i = 0; i < $scope.list.length; i++) {
+      for (var i = 0; i <vm.list.length; i++) {
         table.push({
-          DishName: $scope.list[i].productName,
-          Produed: $scope.list[i].quantity,
-          predicted: $scope.list[i].predicted
+          DishName: vm.list[i].productName,
+          Produed: vm.list[i].quantity,
+          predicted:vm.list[i].predicted
         })
       }
 
       JSONToCSVConvertor(table, "Kitchen Display Report", true);
     }
-
-
-
-
-
     function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
       //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
       var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
