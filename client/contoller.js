@@ -1,7 +1,7 @@
 angular.module('MyApp', ['ngMaterial'])
-  .controller('myController', ["$scope", "$timeout", "$http", "requestService", function($scope, $timeout, $http, requestService) {
+  .controller('myController', ["$scope", "$timeout", "$http", "requestService", function ($scope, $timeout, $http, requestService) {
     var status = 0;
-    var vm=this;
+    var vm = this;
     vm.list = [];
     vm.products = ["Jumbo Chicken Wrap", "Vegetarian Lasagne", "Chicken Rice Feast", "Grilled Chicken Breast", "Warm Fruit Bowl", "Tomato Toast With Macadamia Ricotta"]
 
@@ -20,7 +20,7 @@ angular.module('MyApp', ['ngMaterial'])
       console.log("data not found");
     }
 
-    vm.confirmOrder = function(cName, pName, quantity) {
+    vm.confirmOrder = function (cName, pName, quantity) {
       requestService.confirmOrder({
         cName: cName,
         pName: pName,
@@ -28,12 +28,12 @@ angular.module('MyApp', ['ngMaterial'])
       }, response, failure);
       document.getElementById("placeOrder").reset();
       vm.pName = '';
-      vm.quantity='';
-      vm.cName='';
-   
+      vm.quantity = '';
+      vm.cName = ''
+
     }
 
-    vm.predictedValue = function(value, dishName) {
+    vm.predictedValue = function (value, dishName) {
       requestService.predictedValue({
         dishName: dishName,
         predictedValue: value
@@ -42,23 +42,24 @@ angular.module('MyApp', ['ngMaterial'])
       vm.dishName = '';
     }
 
-    vm.orderServed = function(value) {
+    vm.orderServed = function (value) {
       requestService.orderServed({
         pName: value
       }, response, failure);
     }
-    vm.downloadReports = function() {
+    vm.downloadReports = function () {
       var table = []
-      for (var i = 0; i <vm.list.length; i++) {
+      for (var i = 0; i < vm.list.length; i++) {
         table.push({
           DishName: vm.list[i].productName,
           Produed: vm.list[i].quantity,
-          predicted:vm.list[i].predicted
+          predicted: vm.list[i].predicted
         })
       }
 
       JSONToCSVConvertor(table, "Kitchen Display Report", true);
     }
+
     function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
       //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
       var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
@@ -111,12 +112,6 @@ angular.module('MyApp', ['ngMaterial'])
 
       //Initialize file format you want csv or xls
       var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
-
-      // Now the little tricky part.
-      // you can use either>> window.open(uri);
-      // but this will not work in some browsers
-      // or you will not get the correct file extension
-
       //this trick will generate a temp <a /> tag
       var link = document.createElement("a");
       link.href = uri;
@@ -130,6 +125,5 @@ angular.module('MyApp', ['ngMaterial'])
       link.click();
       document.body.removeChild(link);
     }
-
 
   }]);

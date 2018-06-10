@@ -19,7 +19,6 @@
         <md-input-container>
           <label>Product Name</label>
           <md-select id="selectProduct" ng-model="vm.pName" required>
-            <md-option><em>None</em></md-option>
             <md-option ng-repeat="product in vm.products" ng-value="product">
               <span ng-bind="product"></span>
             </md-option>
